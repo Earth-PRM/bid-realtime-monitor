@@ -3,23 +3,23 @@ import { ConfigContext } from './ConfigContext';
 import './Monitor.css';
 
 const Monitor = () => {
-    const { value1, value2, value3, setValue1, setValue2, setValue3 } = useContext(ConfigContext);
+    const { auctionno, auctionmodel, auctionprice, setAuctionNo, setAuctionModel, setAuctionPrice } = useContext(ConfigContext);
 
     useEffect(() => {
         // ดึงข้อมูลจาก localStorage เมื่อ component ถูก mount
-        const storedValue1 = localStorage.getItem('value1');
-        const storedValue2 = localStorage.getItem('value2');
-        const storedValue3 = localStorage.getItem('value3');
+        const storedAuctionNo = localStorage.getItem('auctionno');
+        const storedAuctionModel = localStorage.getItem('auctionmodel');
+        const storedAuctionPrice = localStorage.getItem('auctionprice');
 
-        if (storedValue1) setValue1(storedValue1);
-        if (storedValue2) setValue2(storedValue2);
-        if (storedValue3) setValue3(storedValue3);
+        if (storedAuctionNo) setAuctionNo(storedAuctionNo);
+        if (storedAuctionModel) setAuctionModel(storedAuctionModel);
+        if (storedAuctionPrice) setAuctionPrice(storedAuctionPrice);
 
         // ฟังก์ชัน handleStorageChange สำหรับการฟังการเปลี่ยนแปลงใน localStorage
         const handleStorageChange = (event) => {
-            if (event.key === 'value1') setValue1(event.newValue);
-            if (event.key === 'value2') setValue2(event.newValue);
-            if (event.key === 'value3') setValue3(event.newValue);
+            if (event.key === 'auctionno') setAuctionNo(event.newValue);
+            if (event.key === 'auctionmodel') setAuctionModel(event.newValue);
+            if (event.key === 'auctionprice') setAuctionPrice(event.newValue);
         };
 
         // ฟัง event 'storage' เพื่อจัดการการเปลี่ยนแปลงใน localStorage
@@ -29,7 +29,7 @@ const Monitor = () => {
         return () => {
             window.removeEventListener('storage', handleStorageChange);
         };
-    }, [setValue1, setValue2, setValue3]);
+    }, [setAuctionNo, setAuctionModel, setAuctionPrice]);
 
     // ฟังก์ชันสำหรับจัดรูปแบบราคา
     const formatPrice = (value) => {
@@ -39,23 +39,23 @@ const Monitor = () => {
     };
 
     return (
-        <div className="container-monitor">
+        <div className="container-monitor bg-black text-white">
             <div className='row'>
                 <div className='sl-header col-4'>
-                    <h1 className='text-center'>หมายเลขประมูล</h1>
-                    <h1 className='text-center'>{value1}</h1>
+                    <h1 className='text-center text-[50px]'>หมายเลขประมูล</h1>
+                    <h1 className='text-center text-[60px]'>{auctionno}</h1>
                 </div>
                 <div className='model-header col-8'>
-                    <h1 className='price-txt text-center'>{value2}</h1>
+                    <h1 className='price-txt text-center text-[100px]'>{auctionmodel}</h1>
                 </div>
             </div>
             <div className='row'>
                 <div className='text-center'>
-                    <h3>ราคาปัจจุบัน</h3>
+                    <h3 className='text-[100px]'>ราคาปัจจุบัน</h3>
                 </div>
             </div>
-            <div className='price-action'>
-                <h1 className='text-center'>{formatPrice(value3)}</h1>
+            <div className='price-action !border-none'>
+                <h1 className='text-center text-[300px]'>{formatPrice(auctionprice)}</h1>
             </div>
         </div>
     );

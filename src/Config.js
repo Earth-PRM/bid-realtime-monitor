@@ -3,34 +3,34 @@ import { ConfigContext } from './ConfigContext';
 import './Config.css';
 
 const Config = () => {
-    const { setValue1, setValue2, setValue3, setValue4 } = useContext(ConfigContext);
-    const [newValue1, setNewValue1] = useState('');
-    const [newValue2, setNewValue2] = useState('');
-    const [newValue3, setNewValue3] = useState('');
-    const [newValue4, setNewValue4] = useState('');
+    const { setAuctionNo, setAuctionModel, setAuctionPrice, setAuctionPerTime } = useContext(ConfigContext);
+    const [newAuctionNo, setNewAuctionNo] = useState('');
+    const [newAuctionModel, setNewAuctionModel] = useState('');
+    const [newAuctionPrice, setNewAuctionPrice] = useState('');
+    const [newAuctionPerTime, setNewAuctionPerTime] = useState('');
     const [tableData, setTableData] = useState([]);
 
     const handleUpdate = () => {
-        setValue1(newValue1);
-        setValue2(newValue2);
-        setValue3(newValue3);
-        setValue4(newValue4);
+        setAuctionNo(newAuctionNo);
+        setAuctionModel(newAuctionModel);
+        setAuctionPrice(newAuctionPrice);
+        setAuctionPerTime(newAuctionPerTime);
 
-        localStorage.setItem('value1', newValue1);
-        localStorage.setItem('value2', newValue2);
-        localStorage.setItem('value3', newValue3);
-        localStorage.setItem('value4', newValue4);
+        localStorage.setItem('auctionno', newAuctionNo);
+        localStorage.setItem('auctionmodel', newAuctionModel);
+        localStorage.setItem('auctionprice', newAuctionPrice);
+        localStorage.setItem('auctionpertime', newAuctionPerTime);
 
-        console.log('อัปเดตค่าดังนี้:', newValue1, newValue2, newValue3, newValue4);
+        console.log('อัปเดตค่าดังนี้:', newAuctionNo, newAuctionModel, newAuctionPrice, newAuctionPerTime);
     };
 
     const bidUpdate = () => {
-        let sum = Number(newValue3) + Number(newValue4);
+        let sum = Number(newAuctionPrice) + Number(newAuctionPerTime);
 
-        setNewValue3(sum);
-        setValue3(sum);
+        setNewAuctionPrice(sum);
+        setAuctionPrice(sum);
 
-        localStorage.setItem('value3', sum);
+        localStorage.setItem('auctionprice', sum);
 
         console.log('อัปเดต bid:', sum);
     };
@@ -38,36 +38,36 @@ const Config = () => {
     const addRow = () => {
         setTableData([
             ...tableData,
-            { id: Date.now(), value1: newValue1, value2: newValue2, value3: newValue3, value4: newValue4 }
+            { id: Date.now(), auctionno: newAuctionNo, auctionmodel: newAuctionModel, auctionprice: newAuctionPrice, auctionpertime: newAuctionPerTime }
         ]);
 
-        setNewValue1('');
-        setNewValue2('');
-        setNewValue3('');
-        setNewValue4('');
+        setNewAuctionNo('');
+        setNewAuctionModel('');
+        setNewAuctionPrice('');
+        setNewAuctionPerTime('');
     };
 
     const selectRow = (row) => {
-        setNewValue1(row.value1);
-        setNewValue2(row.value2);
-        setNewValue3(row.value3);
-        setNewValue4(row.value4);
+        setNewAuctionNo(row.auctionno);
+        setNewAuctionModel(row.auctionmodel);
+        setNewAuctionPrice(row.auctionprice);
+        setNewAuctionPerTime(row.auctionpertime);
     };
 
     const changeRow = (id) => {
-        const updatedValue1 = prompt("Enter new value for หมายเลขประมูล:", tableData.find(row => row.id === id).value1);
-        const updatedValue2 = prompt("Enter new value for รุ่นประมูล:", tableData.find(row => row.id === id).value2);
-        const updatedValue3 = prompt("Enter new value for ราคา:", tableData.find(row => row.id === id).value3);
-        const updatedValue4 = prompt("Enter new value for ประมูล:", tableData.find(row => row.id === id).value4);
+        const updatedAuctionNo = prompt("Enter new value for หมายเลขประมูล:", tableData.find(row => row.id === id).auctionno);
+        const updatedAuctionModel = prompt("Enter new value for รุ่นประมูล:", tableData.find(row => row.id === id).auctionmodel);
+        const updatedAuctionPrice = prompt("Enter new value for ราคา:", tableData.find(row => row.id === id).auctionprice);
+        const updatedAuctionPerTime = prompt("Enter new value for ประมูล:", tableData.find(row => row.id === id).auctionpertime);
 
         const updatedTableData = tableData.map((row) =>
             row.id === id
                 ? {
                     ...row,
-                    value1: updatedValue1,
-                    value2: updatedValue2,
-                    value3: updatedValue3,
-                    value4: updatedValue4
+                    auctionno: updatedAuctionNo,
+                    auctionmodel: updatedAuctionModel,
+                    auctionprice: updatedAuctionPrice,
+                    auctionpertime: updatedAuctionPerTime
                 }
                 : row
         );
@@ -78,14 +78,14 @@ const Config = () => {
         <div className="">
             <div className='addQuestion'>
                 <div className='row'>
-                    <h1>Config</h1>
+                    <h1 className='font-bold text-2xl'>Config</h1>
                 </div>
                 <div className='row'>
                     <div className='col-4'>
                         <input
                             type="text"
-                            value={newValue1}
-                            onChange={(e) => setNewValue1(e.target.value)}
+                            value={newAuctionNo}
+                            onChange={(e) => setNewAuctionNo(e.target.value)}
                             placeholder="หมายเลขประมูล"
                         />
                     </div>
@@ -94,8 +94,8 @@ const Config = () => {
                     <div className='col-4'>
                         <input
                             type="text"
-                            value={newValue2}
-                            onChange={(e) => setNewValue2(e.target.value)}
+                            value={newAuctionModel}
+                            onChange={(e) => setNewAuctionModel(e.target.value)}
                             placeholder="รุ่นประมูล"
                         />
                     </div>
@@ -104,8 +104,8 @@ const Config = () => {
                     <div className='col-3'>
                         <input
                             type="text"
-                            value={newValue3}
-                            onChange={(e) => setNewValue3(e.target.value)}
+                            value={newAuctionPrice}
+                            onChange={(e) => setNewAuctionPrice(e.target.value)}
                             placeholder="ราคา"
                         />
                     </div>
@@ -114,8 +114,8 @@ const Config = () => {
                     <div className='col-3'>
                         <input
                             type="text"
-                            value={newValue4}
-                            onChange={(e) => setNewValue4(e.target.value)}
+                            value={newAuctionPerTime}
+                            onChange={(e) => setNewAuctionPerTime(e.target.value)}
                             placeholder="ประมูล"
                         />
                     </div>
@@ -135,8 +135,8 @@ const Config = () => {
             </div>
             <div className='row'>
                 <div className='col-12'>
-                    <h3>ข้อมูลที่ป้อนล่วงหน้า</h3>
-                    <div className="table-container">
+                    <h3 className='text-2xl'>ข้อมูลที่ป้อนล่วงหน้า</h3>
+                    <div className="table-container h-full">
                         <table>
                             <thead>
                                 <tr>
@@ -151,15 +151,15 @@ const Config = () => {
                             <tbody>
                                 {tableData.map((row) => (
                                     <tr key={row.id}>
-                                        <td>{row.value1}</td>
-                                        <td>{row.value2}</td>
-                                        <td>{row.value3}</td>
-                                        <td>{row.value4}</td>
+                                        <td>{row.auctionno}</td>
+                                        <td>{row.auctionmodel}</td>
+                                        <td>{row.auctionprice}</td>
+                                        <td>{row.auctionpertime}</td>
                                         <td>
                                             <button onClick={() => selectRow(row)}>เลือก</button>
                                         </td>
                                         <td>
-                                            <button className='btn btn-primary' onClick={() => changeRow(row.id)}>แก้ไข</button>
+                                            <button onClick={() => changeRow(row.id)}>แก้ไข</button>
                                         </td>
                                     </tr>
                                 ))}
