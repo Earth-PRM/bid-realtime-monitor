@@ -136,7 +136,7 @@ const Config = () => {
             <div className='row'>
                 <div className='col-12'>
                     <h3 className='text-2xl'>ข้อมูลที่ป้อนล่วงหน้า</h3>
-                    <div className="table-container h-full">
+                    <div className="table-container h-[73vh]">
                         <table>
                             <thead>
                                 <tr>
