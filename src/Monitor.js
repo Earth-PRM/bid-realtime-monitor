@@ -35,17 +35,18 @@ const Monitor = () => {
     const formatPrice = (value) => {
         const number = parseFloat(value);
         if (isNaN(number)) return value;
-        return new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB' }).format(number);
+        return new Intl.NumberFormat('th-TH', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(number);
+        // return new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB' }).format(number);
     };
 
     return (
-        <div className="container-monitor bg-black text-white">
-            <div className='row'>
-                <div className='sl-header col-4'>
+        <div className="container-monitor bg-white text-black">
+            <div className='row '>
+                <div className='sl-header col-4 border-black'>
                     <h1 className='text-center text-[50px]'>หมายเลขประมูล</h1>
                     <h1 className='text-center text-[60px]'>{auctionno}</h1>
                 </div>
-                <div className='model-header col-8'>
+                <div className='model-header col-8 border-black'>
                     <h1 className='price-txt text-center text-[100px]'>{auctionmodel}</h1>
                 </div>
             </div>
