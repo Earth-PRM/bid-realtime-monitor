@@ -66,34 +66,34 @@ const Config = () => {
 
     const changeRow = (id) => {
         const row = tableData.find(row => row.id === id);
-    
+
         const updatedAuctionNo = prompt("Enter new value for หมายเลขประมูล:", row.auctionno);
         if (!updatedAuctionNo) {
             alert("หมายเลขประมูลห้ามเว้นว่าง");
             return;
         }
-    
+
         const updatedAuctionModel = prompt("Enter new value for รุ่นประมูล:", row.auctionmodel);
         if (!updatedAuctionModel) {
             alert("รุ่นประมูลห้ามเว้นว่าง");
             return;
         }
-    
+
         let updatedAuctionPrice = prompt("Enter new value for ราคา:", row.auctionprice);
         if (!updatedAuctionPrice || isNaN(updatedAuctionPrice)) {
             alert("กรุณากรอกตัวเลขในช่อง 'ราคา' เท่านั้น");
             return;
         }
-    
+
         let updatedAuctionPerTime = prompt("Enter new value for ประมูล:", row.auctionpertime);
         if (!updatedAuctionPerTime || isNaN(updatedAuctionPerTime)) {
             alert("กรุณากรอกตัวเลขในช่อง 'ประมูล' เท่านั้น");
             return;
         }
-    
+
         updatedAuctionPrice = Number(updatedAuctionPrice);
         updatedAuctionPerTime = Number(updatedAuctionPerTime);
-    
+
         const updatedTableData = tableData.map((row) =>
             row.id === id
                 ? {
@@ -172,7 +172,7 @@ const Config = () => {
             <div className='row mt-3'>
                 <div className='col-5'></div>
                 <div className='col-3'>
-                    <button onClick={handleUpdate}>อัปเดต (ราคา)</button>
+                    <button onClick={handleUpdate} className='bg-green-500 hover:bg-green-700'>อัปเดต (ราคา)</button>
                     <button onClick={bidUpdate}>ประมูล</button>
                 </div>
             </div>
@@ -203,10 +203,10 @@ const Config = () => {
                                             <button onClick={() => selectRow(row)}>เลือก</button>
                                         </td>
                                         <td>
-                                            <button onClick={() => changeRow(row.id)}>แก้ไข</button>
+                                            <button onClick={() => changeRow(row.id)} className='bg-yellow-500 hover:bg-yellow-700'>แก้ไข</button>
                                         </td>
                                         <td>
-                                            <button onClick={() => deleteRow(row.id)}>ลบ</button> {/* Added Delete button */}
+                                            <button onClick={() => deleteRow(row.id)} className='bg-red-500 hover:bg-red-700'>ลบ</button> {/* Added Delete button */}
                                         </td>
                                     </tr>
                                 ))}

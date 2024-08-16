@@ -40,23 +40,32 @@ const Monitor = () => {
     };
 
     return (
-        <div className="container-monitor bg-white text-black">
-            <div className='row '>
+        <div className="container-monitor bg-[#f76a01] text-white">
+            <div className='flex'>
+                <div className='text-[70px] w-[35%] border-[2px] border-black flex flex-col items-center justify-center'>
+                    <h1>หมายเลขประมูล</h1>
+                    <h1>{auctionno}</h1>
+                </div>
+                <div className='text-[110px] w-[65%] border-[2px] border-black flex flex-col items-center justify-center'>
+                    <h1>{auctionmodel}</h1>
+                </div>
+            </div>
+            {/* <div className='row '>
                 <div className='sl-header col-4 border-black'>
-                    <h1 className='text-center text-[50px]'>หมายเลขประมูล</h1>
+                    <h1 className='text-center text-[60px]'>หมายเลขประมูล</h1>
                     <h1 className='text-center text-[60px]'>{auctionno}</h1>
                 </div>
                 <div className='model-header col-8 border-black'>
-                    <h1 className='price-txt text-center text-[100px]'>{auctionmodel}</h1>
+                    <h1 className='price-txt text-center text-[100px] '>{auctionmodel}</h1>
                 </div>
-            </div>
+            </div> */}
             <div className='row'>
                 <div className='text-center'>
-                    <h3 className='text-[100px]'>ราคาปัจจุบัน</h3>
+                    <h3 className='text-[130px]'>ราคาปัจจุบัน</h3>
                 </div>
             </div>
             <div className='price-action !border-none'>
-                <h1 className='text-center text-[300px]'>{formatPrice(auctionprice)}</h1>
+                <h1 className='text-center text-[350px]'>{formatPrice(auctionprice)}</h1>
             </div>
         </div>
     );
