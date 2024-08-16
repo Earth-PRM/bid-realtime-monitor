@@ -41,8 +41,8 @@ const Monitor = () => {
 
     return (
         <div className="container-monitor bg-[#f76a01] text-white">
-            <div className='flex'>
-                <div className='text-[70px] w-[35%] border-[2px] border-black flex flex-col items-center justify-center'>
+            <div className='flex h-[172px]'>
+                <div className='text-[70px] w-[35%] border-[2px] border-black flex flex-col items-center'>
                     <h1>หมายเลขประมูล</h1>
                     <h1>{auctionno}</h1>
                 </div>
