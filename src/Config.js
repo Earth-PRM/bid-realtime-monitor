@@ -36,6 +36,16 @@ const Config = () => {
     };
 
     const addRow = () => {
+        if (!newAuctionNo || !newAuctionModel || !newAuctionPrice || !newAuctionPerTime) {
+            alert("กรุณากรอกข้อมูลให้ครบทุกช่องก่อนเพิ่มแถว");
+            return;
+        }
+
+        if (isNaN(newAuctionPrice) || isNaN(newAuctionPerTime)) {
+            alert("กรุณากรอกตัวเลขในช่อง 'ราคา' และ 'ประมูล' เท่านั้น");
+            return;
+        }
+
         setTableData([
             ...tableData,
             { id: Date.now(), auctionno: newAuctionNo, auctionmodel: newAuctionModel, auctionprice: newAuctionPrice, auctionpertime: newAuctionPerTime }
@@ -55,11 +65,35 @@ const Config = () => {
     };
 
     const changeRow = (id) => {
-        const updatedAuctionNo = prompt("Enter new value for หมายเลขประมูล:", tableData.find(row => row.id === id).auctionno);
-        const updatedAuctionModel = prompt("Enter new value for รุ่นประมูล:", tableData.find(row => row.id === id).auctionmodel);
-        const updatedAuctionPrice = prompt("Enter new value for ราคา:", tableData.find(row => row.id === id).auctionprice);
-        const updatedAuctionPerTime = prompt("Enter new value for ประมูล:", tableData.find(row => row.id === id).auctionpertime);
-
+        const row = tableData.find(row => row.id === id);
+    
+        const updatedAuctionNo = prompt("Enter new value for หมายเลขประมูล:", row.auctionno);
+        if (!updatedAuctionNo) {
+            alert("หมายเลขประมูลห้ามเว้นว่าง");
+            return;
+        }
+    
+        const updatedAuctionModel = prompt("Enter new value for รุ่นประมูล:", row.auctionmodel);
+        if (!updatedAuctionModel) {
+            alert("รุ่นประมูลห้ามเว้นว่าง");
+            return;
+        }
+    
+        let updatedAuctionPrice = prompt("Enter new value for ราคา:", row.auctionprice);
+        if (!updatedAuctionPrice || isNaN(updatedAuctionPrice)) {
+            alert("กรุณากรอกตัวเลขในช่อง 'ราคา' เท่านั้น");
+            return;
+        }
+    
+        let updatedAuctionPerTime = prompt("Enter new value for ประมูล:", row.auctionpertime);
+        if (!updatedAuctionPerTime || isNaN(updatedAuctionPerTime)) {
+            alert("กรุณากรอกตัวเลขในช่อง 'ประมูล' เท่านั้น");
+            return;
+        }
+    
+        updatedAuctionPrice = Number(updatedAuctionPrice);
+        updatedAuctionPerTime = Number(updatedAuctionPerTime);
+    
         const updatedTableData = tableData.map((row) =>
             row.id === id
                 ? {
@@ -72,6 +106,15 @@ const Config = () => {
                 : row
         );
         setTableData(updatedTableData);
+    };
+
+    // Function to delete a row
+    const deleteRow = (id) => {
+        const confirmDelete = window.confirm("คุณแน่ใจหรือไม่ว่าต้องการลบแถวนี้?");
+        if (confirmDelete) {
+            const updatedTableData = tableData.filter(row => row.id !== id);
+            setTableData(updatedTableData);
+        }
     };
 
     return (
@@ -146,6 +189,7 @@ const Config = () => {
                                     <th>ประมูล</th>
                                     <th>เลือก</th>
                                     <th>แก้ไข</th>
+                                    <th>ลบ</th> {/* Added Delete column */}
                                 </tr>
                             </thead>
                             <tbody>
@@ -160,6 +204,9 @@ const Config = () => {
                                         </td>
                                         <td>
                                             <button onClick={() => changeRow(row.id)}>แก้ไข</button>
+                                        </td>
+                                        <td>
+                                            <button onClick={() => deleteRow(row.id)}>ลบ</button> {/* Added Delete button */}
                                         </td>
                                     </tr>
                                 ))}
